@@ -1,1 +1,1 @@
-# Jlox is a programming language writen in rust
+# Rlox is a programming language writen in rust
