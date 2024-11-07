@@ -36,7 +36,7 @@ To build and run `rlox`, you will need:
 
 3. Run the interpreter with an example `.rlox` file:
    ```bash
-   cargo run --release examples/your_example.rlox
+   cargo run --release examples/script.rlox
    ```
 
 ## Usage
