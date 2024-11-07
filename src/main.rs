@@ -2,28 +2,37 @@ use std::env;
 use std::process::exit;
 use std::fs;
 use std::error::Error;
-
+use std::io;
 
 fn run_file(path: &str) -> Result<(), String>{
     match fs::read_to_string(path) {
         Err(msg) => return Err(msg.to_string()),
-        _ => return run(contents),
+        Ok(contents) => run(&contents),
     }
     // run(contents);
 }
 
-fn run (content: &String) {
-    
+fn run (_content: &String) -> Result<(), String> {
+    return Err("Error: Not implemented".to_string())
+
 }
 
-fn run_prompt() {
+fn run_prompt() -> Result<(), String> {
+    println!(">");
+    let mut buffer = String::new();
+    match io::stdin().read_line(&mut buffer) {
+        Ok(_) => (),
+        Err(_) => return Err("ERROR: Could not read line".to_string())
+    }
 
+    println!("You wrote: {}", buffer);
+    Ok(())
 }
 
 fn main() {
 
     let args: Vec<String> = env::args().collect();
-
+ 
     if args.len() > 2 {
         println!("Usage: jlox [script]");
         exit(64);
@@ -37,7 +46,14 @@ fn main() {
 
         }
     } else {
-        run_prompt();
+        match run_prompt() {
+            Ok(_) => exit(0),
+            Err(msg) => {
+                println!("ERROR:\n{}", msg);
+                exit(1); 
+            }
+
+        };
     }
 
     dbg!("Hello, world!{:?}", args);
