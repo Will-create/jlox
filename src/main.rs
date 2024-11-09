@@ -1,7 +1,6 @@
 use std::env;
 use std::process::exit;
 use std::fs;
-use std::error::Error;
 use std::io;
 
 fn run_file(path: &str) -> Result<(), String>{
@@ -9,7 +8,6 @@ fn run_file(path: &str) -> Result<(), String>{
         Err(msg) => return Err(msg.to_string()),
         Ok(contents) => run(&contents),
     }
-    // run(contents);
 }
 
 fn run (_content: &String) -> Result<(), String> {
@@ -40,7 +38,7 @@ fn main() {
         match run_file(&args[1]) {
             Ok(_) => exit(0),
             Err(msg) => {
-                println!("ERRO:\n{}", msg);
+                println!("ERROR:{}\n", msg);
                 exit(0);
             }
 
