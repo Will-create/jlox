@@ -1,7 +1,7 @@
 use std::env;
 use std::process::exit;
 use std::fs;
-use std::io;
+use std::io::{self, BufRead};
 
 fn run_file(path: &str) -> Result<(), String>{
     match fs::read_to_string(path) {
@@ -18,7 +18,9 @@ fn run (_content: &String) -> Result<(), String> {
 fn run_prompt() -> Result<(), String> {
     println!(">");
     let mut buffer = String::new();
-    match io::stdin().read_line(&mut buffer) {
+    let stdin = io::stdin();
+    let mut handle = stdin.lock();
+    match handle.read_line(&mut buffer) {
         Ok(_) => (),
         Err(_) => return Err("ERROR: Could not read line".to_string())
     }
