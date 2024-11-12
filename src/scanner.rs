@@ -12,56 +12,84 @@ impl Scanner {
 
         //return vec!(Token{ name : String::from("Test")})
 
-        return Ok(vec!(Token::LEFT_BRACE, Token::RIGHT_BRACE))
+        return Ok(vec!())
     }
 }
 
 #[derive(Debug)]
-pub enum Token {
+pub enum TokenType {
     // Single-char tokens
-    LEFT_PAREN,
-    RIGHT_PAREN,
-    LEFT_BRACE,
-    RIGHT_BRACE,
-    COMMA,
-    DOT,
-    MINUS,
-    PLUS,
-    SEMICOLON,
-    SLASH,
-    START,
+    LeftParen,
+    RightParen,
+    LeftBrace,
+    RightBrace,
+    Comma,
+    Dot,
+    Minus,
+    Plus,
+    Semicolon,
+    Slash,
+    Start,
 
     // One or Two chars
-    BANG,
-    BANG_EQUAL,
+    Bang,
+    BangEqual,
     EQUAL,
-    EQUAL_EQUAL,
-    GREATER,
-    GREATER_EQUAL,
-    LESS,
-    LESS_EQUAL,
+    EqualEqual,
+    Greater,
+    GreaterEqual,
+    Less,
+    LessEqual,
 
     // Litterals
-    IDENTIFIER,
-    STRING,
-    NUMBER,
+    Identifier,
+    String,
+    Number,
 
     // Keywords
-    AND,
-    CLASS,
-    ELSE,
-    FALSE,
-    FUN,
-    FOR,
-    IF,
-    nil,
-    OR,
-    PRINT,
-    RETURN,
-    SUPER,
-    THIS,
-    TRUE,
-    VAR,
-    WHILE,
-    EOF   
+    And,
+    Class,
+    Else,
+    False,
+    Fun,
+    For,
+    If,
+    Nil,
+    Or,
+    Print,
+    Return,
+    Super,
+    This,
+    True,
+    Var,
+    While,
+    Eof  
 }
+
+#[derive(Debug)]
+pub enum LiteralValue {
+    IntValue(i64),
+    FValue(f64),
+    StringValue(String),
+    IdentifierValue(String)
+}
+#[derive(Debug)]
+pub struct Token {
+    token_type: TokenType,
+    lexeme: String,
+    literal: LitteralValue,
+    line: u64
+}
+
+impl Token {
+    pub fn new (token_type: TokenType, lexeme: String, literal: Option<LiteralValue>, line: u64) -> Self {
+        Self {
+            token_type,
+            lexeme,
+            literal,
+            line
+        }
+
+    }
+}
+
